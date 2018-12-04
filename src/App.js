@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import GenericModelCRUD from './components/GenericModelCRUD';
 
 class App extends Component {
   render() {
+    const mappings = [
+      { name: "last_name", type: "text" },
+      { name: "first_name", type: "text" },
+      { name: "email", type: "text" },
+      { name: "password", type: "password" },
+    ];
+    const model = {
+      id: undefined,
+      last_name: undefined,
+      first_name: undefined,
+      email: undefined,
+      password: undefined
+    };
+    const table = "user";
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <GenericModelCRUD
+          mappings={mappings} model={model} table={table}
+        />
       </div>
     );
   }
