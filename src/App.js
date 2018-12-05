@@ -24,9 +24,14 @@ class App extends Component {
     const table = "user";
     return (
       <div className="App">
-        <GenericModelCRUD
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+    
+        <LoginClub/>
+        {/* <GenericModelCRUD
           mappings={mappings} model={model} table={table}
-        />
+        /> */}
       </div>
     );
   }
