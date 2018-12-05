@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import logo from './images/logoAllsponsored.png';
 import './App.css';
+import Loginscreen from './components/LoginScreen';
+import LoginClub from './components/LoginClub';
 import GenericModelCRUD from './components/GenericModelCRUD';
 
 class App extends Component {
