@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,12 +35,7 @@ const protectedRoute = () => {
 const LoginClub = () => {
     return (
         <div className="contentGlobal">
-            {/* <form onSubmit={handleSubmit}>
-                <input type="text" name="name" />
-                <input type="password" name="password" />
-                <button type="submit">Login</button>
-            </form>
-            <button onClick={protectedRoute}>protectedRoute</button> */}
+            
             <MuiThemeProvider>
                 <form onSubmit={handleSubmit}>
                     <TextField
@@ -51,7 +46,7 @@ const LoginClub = () => {
                         type="password" name="password" placeholder="mot de pass"
                     />
                     <br />
-                    <RaisedButton label="Login" primary={true} type="submit" />
+                    <Button label="Login" primary={true} type="submit" />
 
                 </form>
             </MuiThemeProvider>
