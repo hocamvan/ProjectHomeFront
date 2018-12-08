@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Route, BrowserRouter, Switch, NavLink, Redirect } from 'react-router-dom';
 
-import logo from './images/logoAllsponsored.png';
-import './App.css';
-import Loginscreen from './components/LoginScreen';
+
 import LoginClub from './components/LoginClub';
 import GenericModelCRUD from './components/GenericModelCRUD';
+import Espace from './components/espaceClub'
+import AdminSponsored from './components/AdminSponsore'
+import AdminSponsore from './components/AdminSponsore';
+
 
 class App extends Component {
   render() {
@@ -24,11 +27,15 @@ class App extends Component {
     const table = "user";
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-    
-        <LoginClub/>
+        <BrowserRouter>
+              <div>
+                <Switch>
+                  <Route exact path="/" component={LoginClub} />
+                  <Route path="/espaceclub" component={Espace} />
+                  <Route path="/AdminSponsored" component={AdminSponsore} />
+                </Switch>
+              </div>
+            </BrowserRouter>
         {/* <GenericModelCRUD
           mappings={mappings} model={model} table={table}
         /> */}
