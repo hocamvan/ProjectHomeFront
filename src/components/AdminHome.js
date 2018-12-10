@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import getToken from '../helper/tokenHelper';
-class Espace extends Component {
+import { getToken, getClubId } from '../helper/tokenHelper';
+
+import AdminHeader from './AdminHeader';
+
+class AdminHome extends Component {
     state = {
         open: true,
         isLoaded: false,
-        clubs: undefined
+        user: undefined
     }
 
     componentDidMount() {
-
+        const url = "http://localhost:3030/user"
         axios({
             method: "GET",
-            url: "http://localhost:3030/club",
+            url: url,
             headers: getToken()
         })
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        clubs: result.data
-
+                        user: result.data
                     });
                 },
                 (error) => {
@@ -34,9 +36,11 @@ class Espace extends Component {
         if (this.state.isLoaded) {
             return (
                 <div>
-                    <h3> Clubs</h3>
-                    {this.state.clubs.map(club => <h1>{club.email}</h1>)}
-                    <h3>Sponsore</h3>
+                    <AdminHeader/>
+                    <button>CLUB</button>
+                    {this.state.user.map(user => <h1>{user.email}</h1>)}
+                    <button>SPONSORE</button>
+                    <button>GESTION DE PROJET</button>            
                 </div>
             )
         } else {
@@ -45,4 +49,4 @@ class Espace extends Component {
 
     }
 }
-export default Espace;
+export default AdminHome;

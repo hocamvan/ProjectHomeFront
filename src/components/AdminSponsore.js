@@ -4,22 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 
 import AdminHeader from './AdminHeader'
 
 const styles = theme => ({
     root: {
         width: '100%',
-        maxWidth: 360,
+        maxWidth: 720,
         backgroundColor: theme.palette.background.paper,
     },
     nested: {
@@ -31,19 +28,14 @@ class AdminSponsore extends Component {
     state = {
         open: true,
         isLoaded: false,
+        error: null,
         sponsors: [],
-        projet: [],
+        projets: [],
+        projetsSponsors: [],
+        projetsBySponsorId: {},
         selectedSponsor: undefined,
+        collapseIndex: []
     }
-    // fetchProjet=(id)=>{
-    //     fetch('http://localhost:3030/project/'+id)
-    //     .then (res => res.json())
-    //     .then ((result) => {
-    //         this.setState ({
-    //             project:result
-    //         })
-    //     })
-    // }
     componentDidMount() {
         fetch('http://localhost:3030/sponsor/')
             .then(res => res.json())
@@ -51,11 +43,40 @@ class AdminSponsore extends Component {
                 (result) => {
                     console.log(result);
                     this.setState({
-                        isLoaded: true,
                         sponsors: result,
-                        // selectedSponsor: sponsors[0]
                     });
-                    // fetchProjet();
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error,
+                    });
+                })
+
+        fetch('http://localhost:3030/api/project/')
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    this.setState({
+                        projets: result,
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error,
+                    });
+                })
+
+        fetch('http://localhost:3030/api/project_has_sponsor/')
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    this.setState({
+                        projetsSponsors: result,
+                    });
                 },
                 (error) => {
                     this.setState({
@@ -65,23 +86,88 @@ class AdminSponsore extends Component {
                 })
 
     }
-    handleClick = () => {
-        this.setState(state => ({ open: !state.open }));
-      };
+    handleClick = (e, index) => {
+        const collapseIndex = this.state.collapseIndex;
+        const currentValue = collapseIndex[index];
+        collapseIndex[index] = !currentValue;
+        this.setState(state => ({ collapseIndex }));
+
+    };
+
     render() {
         const { classes } = this.props;
-        return (
-            <div>
-                <AdminHeader />
-                <List component="nav"
-                    subheader={<ListSubheader component="div">List sponsor - project</ListSubheader>}
-                    className={classes.root}>
-                    <ListItem button onClick={this.handleClick}></ListItem>
-                </List>
+        const { error, isLoaded, sponsors } = this.state;
+        const isFullyLoaded = this.state.sponsors.length > 0
+            && this.state.projets.length > 0
+            && this.state.projetsSponsors.length > 0;
+
+        if (error) {
+            return (
+                <div>
+                    Error:{error.message}
+                </div>
+            );
+        }
+        if (!isLoaded && !isFullyLoaded) {
+            return <div> Loading... </div>;
+        }
+        if (isFullyLoaded) {
+            this.state.sponsors.forEach(sponsor => {
+                this.state.projetsBySponsorId[sponsor.id] = [];
+                this.state.collapseIndex.push(false);
+            });
+            this.state.projetsSponsors.forEach(projetsSponsor => {
+                const project_id = projetsSponsor.project_id;
+                const project = this.state.projets.filter(p => p.id === project_id)[0];
+                const sponsor_id = projetsSponsor.sponsor_id;
+                const array = this.state.projetsBySponsorId[sponsor_id];
+                array.push(project);
+            });
+            return (
+                <div>
+                    <AdminHeader />
+                    {/* <List component="nav"
+                        subheader={<ListSubheader component="div">List sponsor - project</ListSubheader>}
+                        className={classes.root}>
+                        {sponsors.map((sponsor, index) => <ListItem button onClick={e => this.handleClick(e, index)}>
+                            <ListItemText inset primary={sponsor.name} />
+                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                            <Collapse in={this.state.collapseIndex[index]} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    {this.state.projetsBySponsorId[sponsor.id].map((projet) =>
+                                        <ListItem button className={classes.nested}>
+                                            <ListItemAvatar>
+                                                <Avatar alt={projet.name} src={projet.visual_shirt} />
+                                            </ListItemAvatar>
+                                            <ListItemText button inset primary={projet.name} />
+                                        </ListItem>
+                                    )}
+                                </List>
+                            </Collapse>
+                        </ListItem>)}
+                    </List> */}
+                    <div>
+                        <ul>
+                            {sponsors.map(sponsor => (
+                                <li>{sponsor.name}
+                                    <ul>
+                                        {this.state.projetsBySponsorId[sponsor.id].map((projet) => (
+                                            <li>
+                                                <button>{projet.name}</button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))
+                            }
+                        </ul>
+                    </div>
+                </div >
+            );
+        }
 
 
-            </div>
-        )
+
     }
 }
 export default withStyles(styles)(AdminSponsore);
