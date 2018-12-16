@@ -11,6 +11,7 @@ import AdminClub from './components/AdminClub';
 import AdminCreationEspace from './components/AdminCreationEspace';
 import AjouteProjet_Club from './components/AjouteProjet_Club';
 import AdminProject from './components/AdminProject';
+import CreationProjetGlobal from './components/CreationProjetGlobal';
 class App extends Component {
   render() {
     const mappings = [
@@ -39,6 +40,7 @@ class App extends Component {
                   <Route path="/AdminClub" component={AdminClub} />
                   <Route path="/AdminCreationEspace" component={AdminCreationEspace} />
                   <Route path= "/AjouteProjet_Club/:id" component={AjouteProjet_Club}/>
+                  <Route path="/admin/creationprojetglobal" component={CreationProjetGlobal}/>
                   <Route path= "/AdminProject/:id" component={AdminProject}/>
                 </Switch>
             </BrowserRouter>

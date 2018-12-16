@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -11,21 +12,23 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import AdminHeader from './AdminHeader'
+import AdminHeader from './AdminHeader';
+import '../CSS/AdminSponsore.css'
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        maxWidth: 720,
-        backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-        paddingLeft: theme.spacing.unit * 4,
-    },
-});
+// const styles = theme => ({
+//     root: {
+//         width: '100%',
+//         maxWidth: 720,
+//         backgroundColor: theme.palette.background.paper,
+//     },
+//     nested: {
+//         paddingLeft: theme.spacing.unit * 4,
+//     },
+// });
 
 class AdminSponsore extends Component {
     state = {
+        name:undefined,
         open: true,
         isLoaded: false,
         error: null,
@@ -86,13 +89,42 @@ class AdminSponsore extends Component {
                 })
 
     }
-    handleClick = (e, index) => {
-        const collapseIndex = this.state.collapseIndex;
-        const currentValue = collapseIndex[index];
-        collapseIndex[index] = !currentValue;
-        this.setState(state => ({ collapseIndex }));
+    // handleClick = (e, index) => {
+    //     const collapseIndex = this.state.collapseIndex;
+    //     const currentValue = collapseIndex[index];
+    //     collapseIndex[index] = !currentValue;
+    //     this.setState(state => ({ collapseIndex }));
 
-    };
+    // };
+    handleCreationProjet = () => {
+        this.props.history.push('/admin/creationprojetglobal')
+    }
+    
+    
+    handleCreationSponsor = (e) => {
+        e.preventDefault()
+        axios.post("http://localhost:3030/sponsor", {
+            name: e.target.sponsor.value,
+        })
+            .then((res) => {
+                if (res.status == 200) {
+                    console.log("un sponsor ajouté");
+
+                }
+                else if (res.status == 204) {
+                    console.log("error");
+                    alert("error")
+                }
+                else {
+                    console.log("error");
+                    alert("error");
+                }
+            }
+            )
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
     render() {
         const { classes } = this.props;
@@ -146,7 +178,7 @@ class AdminSponsore extends Component {
                             </Collapse>
                         </ListItem>)}
                     </List> */}
-                    <div>
+                    <div className="sponsore">
                         <ul>
                             {sponsors.map(sponsor => (
                                 <li>{sponsor.name}
@@ -162,6 +194,16 @@ class AdminSponsore extends Component {
                             }
                         </ul>
                     </div>
+                    <div >
+                        <form onSubmit={this.handleCreationSponsor}>
+                            <button className="buttonsponsor" type="submit">Ajouter un sponsor </button>
+                            <input type="text" placeholder="nom de sponsor" name="sponsor"/>
+                        </form>
+                    </div>
+                    <div>
+                        <button className="buttonprojet" onClick={this.handleCreationProjet}>Creer un projet global </button>
+                    </div>
+
                 </div >
             );
         }
@@ -170,4 +212,5 @@ class AdminSponsore extends Component {
 
     }
 }
-export default withStyles(styles)(AdminSponsore);
+export default AdminSponsore;
+//withStyles(styles)
