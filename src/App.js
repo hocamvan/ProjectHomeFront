@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch, NavLink, Redirect } from 'react-router-dom';
 
-
 import LoginClub from './components/LoginClub';
 import GenericModelCRUD from './components/GenericModelCRUD';
 import ClubHome from './components/ClubHome';
 import AdminSponsore from './components/AdminSponsore';
 import LoginAdmin from './components/LoginAdmin';
 import AdminHome from './components/AdminHome';
-import AdminClub from './components/AdminClub'
+import AdminClub from './components/AdminClub';
+import AdminCreationEspace from './components/AdminCreationEspace';
+import AjouteProjet_Club from './components/AjouteProjet_Club';
 class App extends Component {
   render() {
     const mappings = [
@@ -28,7 +29,6 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-              <div>
                 <Switch>
                   <Route exact path="/" component={LoginClub} />
                   <Route path="/admin" component={LoginAdmin} />
@@ -36,8 +36,9 @@ class App extends Component {
                   <Route path="/clubhome" component={ClubHome} />
                   <Route path="/AdminSponsored" component={AdminSponsore} />
                   <Route path="/AdminClub" component={AdminClub} />
+                  <Route path="/AdminCreationEspace" component={AdminCreationEspace} />
+                  <Route path= "/AjouteProjet_Club/:id" component={AjouteProjet_Club}/>
                 </Switch>
-              </div>
             </BrowserRouter>
         {/* <GenericModelCRUD
           mappings={mappings} model={model} table={table}

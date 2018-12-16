@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getToken, getClubId } from '../helper/tokenHelper';
 
 import AdminHeader from './AdminHeader';
+import '../CSS/AdminHome.css'
 
 class AdminHome extends Component {
     state = {
@@ -36,12 +37,15 @@ class AdminHome extends Component {
         if (this.state.isLoaded) {
             return (
                 <div>
-                    <AdminHeader/>
-                    <button>CLUB</button>
-                    {this.state.user.map(user => <h1>{user.email}</h1>)}
-                    <button>SPONSORE</button>
-                    <button>GESTION DE PROJET</button>            
+                    <AdminHeader />
+                    <div className="groupe-input">
+                        <button>CLUB</button> <br/>
+                        <button>SPONSORE</button> <br/>
+                        <button>GESTION DE PROJET</button>
+                        {this.state.user.map(user => <h1>{user.email}</h1>)}
+                    </div>
                 </div>
+
             )
         } else {
             return (<div>Loading...</div>);

@@ -2,8 +2,7 @@
     text-align: center;
   }
   
-
-  .App-header {
+.App-header {
     min-height: 30vh; 
     display: flex;
     flex-direction: column;
@@ -11,5 +10,3 @@
     justify-content: center;
     color: white;
   }
- 
-  
