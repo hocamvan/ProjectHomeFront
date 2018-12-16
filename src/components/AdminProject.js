@@ -17,7 +17,6 @@ const styles = theme => ({
 
 class AdminProject extends Component {
     state = {
-        open: true,
         isLoaded: false,
         error: null,
         projet: null,
