@@ -3,17 +3,17 @@ import axios from 'axios';
 import { getToken, getClubId } from '../helper/tokenHelper';
 
 import AdminHeader from './AdminHeader';
-import '../CSS/AdminHome.css'
+import '../CSS/CreationProjetGlobal.css'
 
-class AdminHome extends Component {
+class CreationProjetGlobal extends Component {
     state = {
-        open: true,
         isLoaded: false,
-        user: undefined
+        sponsors: undefined,
+        sponsor: undefined
     }
 
     componentDidMount() {
-        const url = "http://localhost:3030/user"
+        const url = "http://localhost:3030/sponsor"
         axios({
             method: "GET",
             url: url,
@@ -23,7 +23,7 @@ class AdminHome extends Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        user: result.data
+                        sponsors: result.data
                     });
                 },
                 (error) => {
@@ -33,24 +33,49 @@ class AdminHome extends Component {
                     });
                 })
     }
+    handleOnChange(event) {
+        event.preventDefault();
+        this.setState({sponsor: event.target.value});
+      }
     render() {
         if (this.state.isLoaded) {
             return (
                 <div>
                     <AdminHeader />
-                    <div className="groupe-input">
-                        <button>CLUB</button> <br/>
-                        <button>SPONSORE</button> <br/>
-                        <button>GESTION DE PROJET</button>
-                        {this.state.user.map(user => <h1>{user.email}</h1>)}
-                    </div>
-                </div>
+                    <div className="projetglobal">
+                        <h2>Initialisation un projet global</h2>
+                        <form className="formulaire" onSubmit={this.handleOnSubmit} method="POST" enctype="multipart/form-data" action="uploaddufichier">
+                            <label>
+                                Sponsor:
+                                <select value={this.state.sponsor} onChange={this.handleOnChange} >
+                                    {this.state.sponsors.map(sponsor => (
+                                        <option value={sponsor.name}>{sponsor.name}</option>
+                                    ))}
+                                </select>
+                            </label> <br />
+                            <label>
+                                Nom de projet:
+                                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                            </label> <br/>
+                            <label>
+                                Resumé de projet:
+                                <input type="file" name="monfichier"/> <br/>
+                            </label> <br/>
+                            <label>
+                                Visuel de produit:
+                                <input type="file" name="monfichier"/> <br/>
+                            </label> <br/>
+                            <button type="submit" value="Submit"> envoyer </button>
+                        </form>
+                        </div>
 
-            )
+                    </div>
+
+                    )
         } else {
             return (<div>Loading...</div>);
-        }
-
-    }
-}
-export default AdminHome;
+                                                                                                                                }
+                                                                                                                        
+                                                                                                                            }
+                                                                                                                        }
+export default CreationProjetGlobal;
