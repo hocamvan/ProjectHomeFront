@@ -6,7 +6,7 @@ import { getToken, getClubId } from '../helper/tokenHelper';
 import AdminHeader from './AdminHeader';
 import '../CSS/AdminHome.css'
 
-class AdminHome extends Component {
+class AdminGestionProjet extends Component {
     state = {
         open: true,
         isLoaded: false,
@@ -40,9 +40,8 @@ class AdminHome extends Component {
                 <div>
                     <AdminHeader />
                     <div className="groupe-input">
-                        <Link to="/admin-tous-clubs"><button>CLUB</button></Link>    <br />
-                        <Link to="/admin-sponsor"><button>SPONSORE</button></Link>    <br />
-                       <Link to="/admin-gestion-projet"><button>GESTION DE PROJET</button></Link> 
+                        <Link to="/"><button>Formulaire de satisfaction</button></Link>    <br />
+
                     </div>
                 </div>
 
@@ -53,4 +52,4 @@ class AdminHome extends Component {
 
     }
 }
-export default AdminHome;
+export default AdminGestionProjet;

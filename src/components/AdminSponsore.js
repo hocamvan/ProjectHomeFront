@@ -97,7 +97,7 @@ class AdminSponsore extends Component {
 
     // };
     handleCreationProjet = () => {
-        this.props.history.push('/CreationProjetGlobal')
+        this.props.history.push('/admin-creation-projetglobal')
     }
     
     

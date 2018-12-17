@@ -35,8 +35,8 @@ class CreationProjetGlobal extends Component {
     }
     handleOnChange(event) {
         event.preventDefault();
-        this.setState({sponsor: event.target.value});
-      }
+        this.setState({ sponsor: event.target.value });
+    }
     render() {
         if (this.state.isLoaded) {
             return (
@@ -56,26 +56,26 @@ class CreationProjetGlobal extends Component {
                             <label>
                                 Nom de projet:
                                 <input type="text" value={this.state.value} onChange={this.handleChange} />
-                            </label> <br/>
+                            </label> <br />
                             <label>
                                 Resumé de projet:
-                                <input type="file" name="monfichier"/> <br/>
-                            </label> <br/>
+                                <input type="file" name="monfichier" /> <br />
+                            </label> <br />
                             <label>
                                 Visuel de produit:
-                                <input type="file" name="monfichier"/> <br/>
-                            </label> <br/>
+                                <input type="file" name="monfichier" /> <br />
+                            </label> <br />
                             <button type="submit" value="Submit"> envoyer </button>
                         </form>
-                        </div>
-
                     </div>
 
-                    )
+                </div>
+
+            )
         } else {
             return (<div>Loading...</div>);
-                                                                                                                                }
-                                                                                                                        
-                                                                                                                            }
-                                                                                                                        }
+        }
+
+    }
+}
 export default CreationProjetGlobal;
