@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-
-
 import AdminHeader from './AdminHeader'
 import { withStyles } from '@material-ui/core/styles';
+
 const styles = theme => ({
     root: {
         width: '100%',
