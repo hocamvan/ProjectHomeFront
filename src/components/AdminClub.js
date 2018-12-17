@@ -55,7 +55,7 @@ class AdminClub extends Component {
                 })
     }
     handleOnCLick = () => {
-        this.props.history.push(`/AjouteProjet_Club/${this.state.club.id}`)
+        this.props.history.push(`/ajoute-projet-club/${this.state.club.id}`)
     }
     render() {
         const { club, projet } = this.state;
