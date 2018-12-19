@@ -3,13 +3,13 @@ import axios from 'axios';
 import { getToken, getClubId } from '../helper/tokenHelper';
 
 import AdminHeader from './AdminHeader';
-import '../CSS/CreationProjetGlobal.css'
+import '../CSS/CreationProjetGlobal.scss'
 
 class CreationProjetGlobal extends Component {
     state = {
         isLoaded: false,
         sponsors: undefined,
-        sponsor: undefined
+        sponsor_id: undefined
     }
 
     componentDidMount() {
@@ -23,8 +23,11 @@ class CreationProjetGlobal extends Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        sponsors: result.data
+                        sponsors: result.data,
+                        //sponsor_id:result.date[0].id
                     });
+                    console.log(result.data);
+                    
                 },
                 (error) => {
                     this.setState({
@@ -33,25 +36,55 @@ class CreationProjetGlobal extends Component {
                     });
                 })
     }
-    handleOnChange(event) {
+    handleOnChange =( event)=> {
         event.preventDefault();
-        this.setState({ sponsor: event.target.value });
+        this.setState({ [event.target.name]: event.target.value });
+    }
+    handleOnSubmit = (e) => {
+        e.preventDefault();
+        const { project_id, club_id, name, url_contract, url_signed_contract } = this.state;
+        const body = {
+            project_id,
+            club_id,
+            name,
+            url_contract,
+            url_signed_contract
+        };
+
+        axios.post("http://localhost:3030/project", body)
+            .then((res) => {
+
+                if (res.status == 200) {
+                    alert("Contrat est créé");
+                }
+            }
+            )
+            .catch(function (error) {
+                console.log(error);
+            })
     }
     render() {
         if (this.state.isLoaded) {
             return (
                 <div>
+                    <div>
                     <AdminHeader />
+                    </div>
                     <div className="projetglobal">
-                        <h2>Initialisation un projet global</h2>
+                        <p>Initialisation un projet global</p>
                         <form className="formulaire" onSubmit={this.handleOnSubmit} method="POST" enctype="multipart/form-data" action="uploaddufichier">
                             <label>
                                 Sponsor:
-                                <select value={this.state.sponsor} onChange={this.handleOnChange} >
+                                <select name="sponsor" value={this.state.sponsor} onChange={this.handleOnChange} >
                                     {this.state.sponsors.map(sponsor => (
-                                        <option value={sponsor.name}>{sponsor.name}</option>
+                                        <option value={sponsor.id}>{sponsor.name}</option>
                                     ))}
                                 </select>
+                                {/* <select name="club_id" value={club_id} onChange={this.handleChange}>
+                            {clubs.map(club =>
+                                <option value={club.id}>{club.name}</option>
+                            )}
+                        </select> */}
                             </label> <br />
                             <label>
                                 Nom de projet:
