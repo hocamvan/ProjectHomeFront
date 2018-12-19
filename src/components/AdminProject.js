@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 
-import AdminHeader from './AdminHeader'
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-    root: {
-        width: '100%',
-        maxWidth: 720,
-        backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-        paddingLeft: theme.spacing.unit * 4,
-    },
-});
+import AdminHeader from './AdminHeader';
+import '../CSS/AdminProject.scss';
 
 class AdminProject extends Component {
     state = {
@@ -52,6 +41,11 @@ class AdminProject extends Component {
                     });
                 })
     }
+
+    handleOnClick = (id) => {
+        this.props.history.push(`/admin-club/${id}`)
+    }
+
     render() {
         const { error, isLoaded, projet, contracts } = this.state;
 
@@ -65,12 +59,16 @@ class AdminProject extends Component {
         if (!isLoaded) {
             return <div> Loading... </div>;
         }
-        return (<div>
+        return (
+        <div className="adminprojet" >
             <AdminHeader />
-            <h2>{projet.name}</h2>
-            {contracts.map(contract => (<li>{contract.name}</li>))}
+            <p>{projet.name}</p>
+            {contracts.map(contract => (
+                <ol className="contractname">
+                    <button className="buttonprojet" onClick={() => this.handleOnClick(contract.club_id)}>{contract.name}</button>
+                </ol>))}
         </div>);
     }
 }
 
-export default withStyles(styles)(AdminProject);
+export default AdminProject;

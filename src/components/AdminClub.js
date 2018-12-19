@@ -12,7 +12,7 @@ class AdminClub extends Component {
     }
 
     componentDidMount() {
-        const url = "http://localhost:3030/club/1"
+        const url = "http://localhost:3030/club/" + this.props.match.params.id
         axios({
             method: "GET",
             url: url,
@@ -35,7 +35,7 @@ class AdminClub extends Component {
                 })
         axios({
             method: "GET",
-            url: "http://localhost:3030/club/contract/1",
+            url: "http://localhost:3030/club/contract/" + this.props.match.params.id
             // headers: getToken()
         })
             .then(

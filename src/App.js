@@ -39,8 +39,8 @@ class App extends Component {
                   <Route path="/admin" component={LoginAdmin} />
                   <Route path="/adminhome" component={AdminHome} />
                   <Route path="/clubhome" component={ClubHome} />
-                  <Route path="/admins-sponsor" component={AdminSponsore} />
-                  <Route path="/admin-club" component={AdminClub} />
+                  <Route path="/admin-sponsor" component={AdminSponsore} />
+                  <Route path="/admin-club/:id" component={AdminClub} />
                   <Route path="/admin-creation-espace" component={AdminCreationEspace} />
                   <Route path="/ajoute-projet-club" component={AjouteProjet_Club}/>
                   <Route path="/admin-creation-projetglobal" component={CreationProjetGlobal}/>
