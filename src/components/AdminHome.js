@@ -41,7 +41,7 @@ class AdminHome extends Component {
                     <AdminHeader />
                     <div className="groupe-input">
                         <Link to="/admin-tous-clubs"><button className="inputclub" >CLUB</button></Link>    <br />
-                        <Link to="/admin-sponsor"><button className="inputsponsor" >SPONSORE</button></Link>    <br />
+                        <Link to="/admin-sponsor"><button className="inputsponsor" >SPONSOR</button></Link>    <br />
                         <Link to="/admin-gestion-projet"><button className="inputprojet" >GESTION DE PROJET</button></Link>
                     </div>
                 </div>

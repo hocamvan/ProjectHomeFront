@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getToken, getClubId } from '../helper/tokenHelper';
 
 import AdminHeader from './AdminHeader';
+import'../CSS/AdminClub.scss'
 
 class AdminClub extends Component {
     state = {
@@ -61,13 +62,15 @@ class AdminClub extends Component {
         const { club, projet } = this.state;
         if (this.state.isLoaded) {
             return (
-                <div>
+                <div className="AdminClub">
                     <AdminHeader />
                     <h1> CLUB {club.name} </h1>
+                    <div className="info">
                     <h3>Address : {club.address}</h3>
                     <h3>Telephone : {club.phone}</h3>
                     <h3>Email : {club.email}</h3>
-                    <h3> Logo </h3><img src={club.url_logo} alt={club.name} width="100px" />
+                    </div>
+                    <p> Logo </p><img src={club.url_logo} alt={club.name} width="100px" /> <br/>
                     <button>Télécharger logo </button>
                     <table>
                         <thead>
@@ -82,9 +85,9 @@ class AdminClub extends Component {
                             {projet.map(e => (
                                 <tr>
                                     <td>{e.name}</td>
-                                    <td>{e.url_contract}</td>
-                                    <td><button>{e.order_id}</button></td>
-                                    <td><button>{e.survey_id}</button></td>
+                                    <td><button> {e.url_contract} afficher</button></td>
+                                    <td><button>{e.order_id} afficher</button></td>
+                                    <td><button>{e.survey_id} afficher</button></td>
                                 </tr>
                             ))}
                         </tbody>
