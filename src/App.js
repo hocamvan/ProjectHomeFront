@@ -13,8 +13,10 @@ import AjouteProjet_Club from './components/AjouteProjet_Club';
 import AdminProject from './components/AdminProject';
 import CreationProjetGlobal from './components/CreationProjetGlobal';
 import AdminParameters from './components/AdminParameters';
-import AdminTousClubs from './components/AdminTousClubs';  
-import AdminGestionProjet from'./components/AdminGestionProjet';
+import AdminTousClubs from './components/AdminTousClubs';
+import AdminGestionProjet from './components/AdminGestionProjet';
+import PrivateRoute from './components/PrivateRoute';
+import { hasToken } from './helper/tokenHelper';
 class App extends Component {
   render() {
     const mappings = [
@@ -34,23 +36,23 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-                <Switch>
-                  <Route exact path="/" component={LoginClub} />
-                  <Route path="/admin" component={LoginAdmin} />
-                  <Route path="/adminhome" component={AdminHome} />
-                  <Route path="/clubhome" component={ClubHome} />
-                  <Route path="/admin-sponsor" component={AdminSponsore} />
-                  <Route path="/admin-club/:id" component={AdminClub} />
-                  <Route path="/admin-creation-espace" component={AdminCreationEspace} />
-                  <Route path="/ajoute-projet-club" component={AjouteProjet_Club}/>
-                  <Route path="/admin-creation-projetglobal" component={CreationProjetGlobal}/>
-                  <Route path="/admin-project/:id" component={AdminProject}/>
-                  <Route path="/admin-parameters" component={AdminParameters} />
-                  <Route path="/admin-tous-clubs" component={AdminTousClubs}/>
-                  <Route path="/admin-gestion-projet" component={AdminGestionProjet}/>
-                  
-                </Switch>
-            </BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={LoginClub} />
+            <Route path="/admin" component={LoginAdmin} />
+            <PrivateRoute verifyFunction={hasToken} path="/adminhome" component={AdminHome} />
+            <Route path="/clubhome" component={ClubHome} />
+            <Route path="/admin-sponsor" component={AdminSponsore} />
+            <Route path="/admin-club/:id" component={AdminClub} />
+            <Route path="/admin-creation-espace" component={AdminCreationEspace} />
+            <Route path="/ajoute-projet-club" component={AjouteProjet_Club} />
+            <Route path="/admin-creation-projetglobal" component={CreationProjetGlobal} />
+            <Route path="/admin-project/:id" component={AdminProject} />
+            <Route path="/admin-parameters" component={AdminParameters} />
+            <Route path="/admin-tous-clubs" component={AdminTousClubs} />
+            <Route path="/admin-gestion-projet" component={AdminGestionProjet} />
+
+          </Switch>
+        </BrowserRouter>
         {/* <GenericModelCRUD
           mappings={mappings} model={model} table={table}
         /> */}

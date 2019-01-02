@@ -6,3 +6,9 @@ export function getToken() {
 export function getClubId() {
     return  localStorage.getItem("clubId");
 };
+
+
+export function hasToken() {
+    const token = localStorage.getItem("token");
+    return token !== undefined;
+};
