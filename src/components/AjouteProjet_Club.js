@@ -120,21 +120,22 @@ class AjouteProjet_Club extends Component {
                     </label>
                     <br />
                     <label>
-                        convention :
-                        <input type="file" name="monfichier" /> <br />
-                    </label>
-                    <br />
-                    <label>
                         bon de commande :
                         <input name="url_signed_contract" type="text" value={this.state.url_signed_contract} onChange={this.handleChange} />
                     </label>
-
                     <br />
-                    <input type="submit" value="Créer un nouveau contrat" />
+                    <button type="submit" value="Submit"> Créer un nouveau contrat-club </button>
                 </form>
+                <div className="formulaire">
+                <label>
+                    convention :
+                    <input type="file" name="file" accept=".pdf" onChange={this.onChangeFile} /> <br />
+                    <button onClick={this.handleUpload}>Upload</button>
+                </label>
+                </div>
+                
             </div>
         )
-
     }
 }
 export default AjouteProjet_Club; 
